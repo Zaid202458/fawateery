@@ -1,96 +1,137 @@
-# 🛒 Fawateery
+# 🛒 Fawateery | فواتيري
 
-Fawateery is a feature-rich, high-performance offline-first billing and Point of Sale (POS) application built with Flutter. It is designed for seamless retail checkout operations featuring barcode scanning, thermal Bluetooth printing, and robust local data persistence.
+## English
 
+### Overview
+Fawateery is an offline-first Point of Sale (POS) and billing app built with Flutter for retail businesses. It focuses on fast checkout, barcode-based product handling, Bluetooth thermal printing, and reliable local data storage.
 
+### Key Features
+- Product management (add, edit, delete, search, barcode support)
+- Checkout with camera barcode scanning
+- Cart quantity controls and total calculation
+- Bluetooth thermal receipt printing
+- Shop profile setup (name, address, phone, footer, payment data)
+- Bilingual UI support (Arabic/English) with official Flutter localization
+- Offline-first architecture using local database storage
 
-## 🎯 Project Scope
+### Tech Stack
+- Framework: [Flutter](https://flutter.dev/)
+- State Management: `flutter_bloc`
+- Dependency Injection: `get_it`
+- Navigation: `go_router`
+- Local Storage: `hive`, `hive_flutter`
+- Code Generation: `build_runner`, `json_serializable`, `hive_generator`
+- Hardware Integrations: `mobile_scanner`, `print_bluetooth_thermal`
 
-This application serves as a complete offline POS system for small to medium-sized retail shops. It streamlines the checkout process, catalog management, and receipt generation securely entirely on-device.
-
-### Core Features:
-- **Product Management System**: Complete CRUD operations for inventory items with barcode/QR code support.
-- **Smart Checkout System**: Rapid cart building via camera-based barcode scanning or manual entry, and robust order calculation functionality.
-- **Bluetooth Thermal Printing**: Direct integration with thermal printers (`print_bluetooth_thermal`) to instantly output physical receipts.
-- **Shop Settings & Customization**: Centrally managed shop details printed dynamically on receipts.
-- **Offline-First Architecture**: Powered by `Hive` for lightning-fast localized NoSQL data storage. No active internet connectivity required.
-
-## 🛠 Tech Stack & Architecture
-
-Built leveraging industry-standard architectural principles (Clean Architecture & Feature-Driven Design) ensuring scalability, separation of concerns, and robust testability. 
-
-- **Framework**: [Flutter](https://flutter.dev/) (SDK >=3.1.0)
-- **State Management**: `flutter_bloc`
-- **Dependency Injection**: `get_it`
-- **Routing**: `go_router`
-- **Local Database**: `hive` & `hive_flutter`
-- **Data Modeling**: `json_serializable`, `equatable`
-- **Functional Programming**: `fpdart`
-- **Hardware Integrations**: `mobile_scanner` (barcodes), `print_bluetooth_thermal`
-
-## 📁 File Structure
-
-The codebase is organized using a **Feature-First Clean Architecture** utilizing domain-driven concepts.
-
+### Project Structure
 ```text
 lib/
-├── core/                       # Core application utilities and shared components
-│   ├── data/                   # Global data sources (e.g., Hive initialization)
-│   ├── error/                  # Standardized Failure/Exception models (fpdart compatible)
-│   ├── theme/                  # UI aesthetics, typography, styling
-│   ├── usecase/                # Base UseCase contracts
-│   ├── utils/                  # Helpers (e.g., PrinterHelper, formatters)
-│   ├── widgets/                # Reusable global UI widgets (AppBars, generic buttons)
-│   └── service_locator.dart    # get_it dependency injection setup
-│
-└── features/                   # Independent feature modules
-    ├── billing/                # Core POS operations: Cart, Checkout, Invoice Generation
-    ├── product/                # Inventory management: Adding, Listing, Scanning products
-    ├── settings/               # App configuration: Printer connections, App settings
-    └── shop/                   # Shop details configuration
+├── config/                    # Routing and app-level config
+├── core/                      # Shared utilities, theme, base contracts
+│   ├── data/                  # Hive initialization and global data setup
+│   ├── error/                 # Failure models
+│   ├── theme/                 # App theme
+│   ├── usecase/               # Base use case contract
+│   ├── utils/                 # Validators, printer helpers
+│   └── widgets/               # Reusable UI components
+├── features/
+│   ├── billing/               # Scanner, cart, checkout, printing
+│   ├── product/               # Product CRUD and search
+│   ├── settings/              # Printer and app settings
+│   └── shop/                  # Shop details management
+└── l10n/                      # ARB localization files and generated localizations
 ```
 
-*Note: Each feature is further subdivided internally into Clean Architecture layers: `data`, `domain`, and `presentation`.*
-
-## 💡 Use Cases
-
-- **Rapid Billing Entry**: A cashier launches the app, navigates to the checkout page, and uses the device camera to instantly scan product barcodes. The products are added to the cart, the total is calculated including taxes, and a receipt is finalized.
-- **Physical Receipt Generation**: After checkout confirmation, the app triggers a connected external Bluetooth thermal POS printer to instantly print an itemized paper receipt with the shop’s header.
-- **Inventory Sideloading**: A manager opens the Product feature to add new stock to the local database, taking a picture of the barcode to bind the SKU for future lightning-fast checkouts.
-- **No-Connection Operation**: The business operates a stall at an exhibition with poor networking. The app functions entirely via its embedded Hive local database and Bluetooth, completely undisturbed by network drops.
-
-## 🚀 Getting Started
-
-### Prerequisites
-- Flutter SDK `^3.1.0` or higher
-- Android Studio / Xcode for emulators and building.
-- *Optional*: A physical Android/iOS device and a Bluetooth Thermal Printer for testing hardware integrations natively.
-
-### Installation
-
-1. Clone the repository and navigate to the project directory:
+### Run Locally
+1. Clone and open project:
    ```bash
    git clone <repository_url>
    cd fawateery
    ```
-
-2. Fetch dependencies:
+2. Install dependencies:
    ```bash
    flutter pub get
    ```
-
-3. Run code generation (required for Hive adapters and JSON serialization):
+3. Generate localization/code files:
    ```bash
+   flutter gen-l10n
    dart run build_runner build --delete-conflicting-outputs
    ```
-
-4. Run the project:
+4. Run app:
    ```bash
    flutter run
    ```
 
-## 🤝 Contributing Guidelines
-As a senior-focused project, please adhere to:
-1. **Clean Architecture Rules**: Maintain strict boundaries between `domain`, `data`, and `presentation` layers.
-2. **Immutable States**: Emit only immutable states from BLoCs utilizing `equatable`.
-3. **No Direct Exceptions in Domain**: Utilize `fpdart`'s `Either<Failure, Type>` pattern to handle control flow for exceptions.
+### Requirements
+- Flutter SDK 3.x
+- Android Studio or VS Code + Flutter extensions
+- For full printer/scanner testing: physical device recommended
+
+---
+
+## العربية
+
+### نظرة عامة
+فواتيري هو تطبيق نقاط بيع وفوترة يعمل بنمط Offline-First باستخدام Flutter، ومصمم لمتاجر التجزئة لتسريع عمليات البيع، مسح الباركود، وطباعة الفواتير الحرارية عبر البلوتوث مع حفظ البيانات محليًا بشكل موثوق.
+
+### المميزات الرئيسية
+- إدارة المنتجات (إضافة، تعديل، حذف، بحث، دعم الباركود)
+- صفحة كاشير مع مسح باركود بالكاميرا
+- التحكم في كميات السلة وحساب الإجمالي
+- طباعة فاتورة عبر طابعات حرارية Bluetooth
+- إدارة بيانات المتجر (الاسم، العنوان، الهاتف، تذييل الفاتورة، بيانات الدفع)
+- دعم واجهة بلغتين (العربية/الإنجليزية) باستخدام `gen_l10n`
+- عمل كامل بدون إنترنت عبر قاعدة بيانات محلية
+
+### التقنيات المستخدمة
+- إطار العمل: [Flutter](https://flutter.dev/)
+- إدارة الحالة: `flutter_bloc`
+- حقن الاعتمادية: `get_it`
+- التوجيه والتنقل: `go_router`
+- التخزين المحلي: `hive`, `hive_flutter`
+- توليد الأكواد: `build_runner`, `json_serializable`, `hive_generator`
+- تكامل العتاد: `mobile_scanner`, `print_bluetooth_thermal`
+
+### هيكلة المشروع
+```text
+lib/
+├── config/                    # إعدادات التطبيق والمسارات
+├── core/                      # الأدوات المشتركة والثيم والعقود الأساسية
+│   ├── data/                  # تهيئة Hive ومصادر البيانات العامة
+│   ├── error/                 # نماذج الأخطاء
+│   ├── theme/                 # ثيم التطبيق
+│   ├── usecase/               # العقد الأساسية لحالات الاستخدام
+│   ├── utils/                 # أدوات مساعدة مثل التحقق والطباعة
+│   └── widgets/               # عناصر واجهة قابلة لإعادة الاستخدام
+├── features/
+│   ├── billing/               # المسح، السلة، الدفع، الطباعة
+│   ├── product/               # إدارة المنتجات
+│   ├── settings/              # إعدادات التطبيق والطابعة
+│   └── shop/                  # بيانات المتجر
+└── l10n/                      # ملفات الترجمة ARB وملفات الترجمة المولدة
+```
+
+### طريقة التشغيل
+1. استنساخ المشروع والدخول إليه:
+   ```bash
+   git clone <repository_url>
+   cd fawateery
+   ```
+2. تثبيت الحزم:
+   ```bash
+   flutter pub get
+   ```
+3. توليد ملفات الترجمة والأكواد:
+   ```bash
+   flutter gen-l10n
+   dart run build_runner build --delete-conflicting-outputs
+   ```
+4. تشغيل التطبيق:
+   ```bash
+   flutter run
+   ```
+
+### المتطلبات
+- Flutter SDK إصدار 3.x
+- Android Studio أو VS Code مع إضافات Flutter
+- لاختبار كامل للطباعة والمسح: يُفضّل جهاز حقيقي
