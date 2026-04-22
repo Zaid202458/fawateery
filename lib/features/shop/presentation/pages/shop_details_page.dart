@@ -3,6 +3,7 @@ import 'package:billing_app/core/widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../domain/entities/shop.dart';
 import '../bloc/shop_bloc.dart';
 import '../../../../core/theme/app_theme.dart';
@@ -77,17 +78,18 @@ class _ShopDetailsPageState extends State<ShopDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
         appBar: AppBar(
-          title: const Text('بيانات المتجر'),
+          title: Text(l10n.shopDetails),
         ),
         body: BlocConsumer<ShopBloc, ShopState>(
           listener: (context, state) {
             if (state is ShopLoaded) {
               _updateControllers(state.shop);
             } else if (state is ShopOperationSuccess) {
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text('تم حفظ بيانات المتجر'),
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text(l10n.shopDetailsSaved),
                   backgroundColor: Colors.green));
               context.pop();
             } else if (state is ShopError) {
@@ -109,7 +111,7 @@ class _ShopDetailsPageState extends State<ShopDetailsPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Text('المعلومات العامة',
+                    Text(l10n.generalInformation,
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
@@ -120,39 +122,39 @@ class _ShopDetailsPageState extends State<ShopDetailsPage> {
                       height: 5,
                     ),
                     Text(
-                      'هذه المعلومات ستظهر في الفواتير الرقمية والمطبوعة.',
+                      l10n.detailsAppearOnReceipts,
                       style: TextStyle(fontSize: 12, color: Colors.grey[500]),
                     ),
                     const SizedBox(height: 24),
-                    const InputLabel(text: 'اسم المتجر'),
+                    InputLabel(text: l10n.shopNameLabel),
                     _buildTextField(
                       controller: _nameController,
-                      hint: 'مثال: متجر فواتيري',
-                      validator: AppValidators.required('هذا الحقل مطلوب'),
+                      hint: l10n.appTitle,
+                      validator: AppValidators.required(l10n.requiredField),
                     ),
                     const SizedBox(height: 15),
-                    const InputLabel(text: 'العنوان 1'),
+                    InputLabel(text: l10n.addressLine1Label),
                     _buildTextField(
                       controller: _address1Controller,
                       hint: 'الرياض - حي المروج',
-                      validator: AppValidators.required('هذا الحقل مطلوب'),
+                      validator: AppValidators.required(l10n.requiredField),
                     ),
                     const SizedBox(height: 15),
-                    const InputLabel(text: 'العنوان 2 (اختياري)'),
+                    InputLabel(text: l10n.addressLine2OptionalLabel),
                     _buildTextField(
                       controller: _address2Controller,
                       hint: 'المخرج 5',
                     ),
                     const SizedBox(height: 15),
-                    const InputLabel(text: 'رقم الجوال'),
+                    InputLabel(text: l10n.phoneNumberLabel),
                     _buildTextField(
                       controller: _phoneController,
                       hint: '+91 7010674588',
                       keyboardType: TextInputType.phone,
-                      validator: AppValidators.required('هذا الحقل مطلوب'),
+                      validator: AppValidators.required(l10n.requiredField),
                     ),
                     const SizedBox(height: 15),
-                    const InputLabel(text: 'معرف UPI'),
+                    InputLabel(text: l10n.upiIdLabel),
                     _buildTextField(
                       controller: _upiController,
                       hint: 'example@bank',
@@ -161,8 +163,8 @@ class _ShopDetailsPageState extends State<ShopDetailsPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const InputLabel(text: 'نص تذييل الفاتورة'),
-                        Text('الحد الأقصى 60 حرفًا',
+                        InputLabel(text: l10n.receiptFooterTextLabel),
+                        Text(l10n.maxChars60,
                             style: TextStyle(
                                 fontSize: 11, color: Colors.grey[400])),
                       ],
@@ -182,7 +184,7 @@ class _ShopDetailsPageState extends State<ShopDetailsPage> {
         bottomNavigationBar: PrimaryButton(
           onPressed: _saveShop,
           icon: Icons.save,
-          label: 'حفظ البيانات',
+          label: l10n.saveDetails,
         ));
   }
 

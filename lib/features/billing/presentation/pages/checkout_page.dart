@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
+import '../../../../l10n/app_localizations.dart';
 
 import '../../../shop/presentation/bloc/shop_bloc.dart';
 import '../bloc/billing_bloc.dart';
@@ -17,6 +18,7 @@ class CheckoutPage extends StatefulWidget {
 class _CheckoutPageState extends State<CheckoutPage> {
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     const borderColor = Color(0xFFE5E5EA);
 
     return PopScope(
@@ -28,7 +30,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
         },
         child: Scaffold(
           appBar: AppBar(
-            title: const Text('إتمام الطلب',
+            title: Text(l10n.checkoutTitle,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
             centerTitle: true,
             backgroundColor: Colors.transparent,
@@ -45,8 +47,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
           body: BlocConsumer<BillingBloc, BillingState>(
             listener: (context, state) {
               if (state.printSuccess) {
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    content: Text('تمت الطباعة بنجاح'),
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text(l10n.printedSuccessfully),
                     backgroundColor: Colors.green));
                 // context.read<BillingBloc>().add(ClearCartEvent());
                 // context.go('/');
@@ -104,11 +106,11 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                       ),
                                       children: [
                                         _buildHeaderCell(
-                                            'الصنف', TextAlign.left),
+                                            l10n.productName, TextAlign.left),
                                         _buildHeaderCell(
-                                            'السعر', TextAlign.right),
+                                            l10n.price, TextAlign.right),
                                         _buildHeaderCell(
-                                            'الإجمالي', TextAlign.right),
+                                            l10n.total, TextAlign.right),
                                       ],
                                     ),
                                     // Items rows
@@ -173,8 +175,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                 upiId.isNotEmpty
                                     ? Column(
                                         children: [
-                                          const Text(
-                                            'امسح للدفع',
+                                          Text(
+                                            l10n.scanToPay,
                                             style: TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.bold,
@@ -200,7 +202,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      'المجموع الكلي',
+                                      l10n.grandTotal,
                                       style: TextStyle(
                                         fontSize: 12,
                                         fontWeight: FontWeight.bold,
@@ -234,13 +236,13 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                         footer: shopState.shop.footerText));
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
+                                    SnackBar(
                                         content:
-                                            Text('بيانات المتجر غير محمّلة'),
+                                            Text(l10n.shopDetailsNotLoaded),
                                         backgroundColor: Colors.red));
                               }
                             },
-                            label: 'طباعة الفاتورة',
+                            label: l10n.printReceipt,
                             icon: Icons.print,
                             isLoading: billingState.isPrinting,
                           ),

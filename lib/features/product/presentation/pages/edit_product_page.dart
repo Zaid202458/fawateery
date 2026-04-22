@@ -3,6 +3,7 @@ import 'package:billing_app/core/widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../l10n/app_localizations.dart';
 
 import '../bloc/product_bloc.dart';
 import '../../domain/entities/product.dart';
@@ -47,6 +48,7 @@ class _EditProductPageState extends State<EditProductPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
@@ -55,7 +57,7 @@ class _EditProductPageState extends State<EditProductPage> {
                 size: 32, color: Theme.of(context).primaryColor),
             onPressed: () => context.pop(),
           ),
-          title: const Text('تعديل المنتج',
+          title: Text(l10n.editProduct,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
           centerTitle: true,
         ),
@@ -85,7 +87,7 @@ class _EditProductPageState extends State<EditProductPage> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('الباركود',
+                            Text(l10n.barcode,
                                 style: TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.bold,
@@ -103,17 +105,17 @@ class _EditProductPageState extends State<EditProductPage> {
                     ),
                   ),
 
-                  const InputLabel(text: 'اسم المنتج'),
+                  InputLabel(text: l10n.productName),
 
                   TextFormField(
                     initialValue: _name,
                     textCapitalization: TextCapitalization.words,
-                    validator: AppValidators.required('الرجاء إدخال الاسم'),
+                    validator: AppValidators.required(l10n.pleaseEnterName),
                     onSaved: (value) => _name = value!,
                   ),
                   const SizedBox(height: 24),
 
-                  const InputLabel(text: 'السعر'),
+                  InputLabel(text: l10n.price),
 
                   TextFormField(
                     initialValue: _price.toStringAsFixed(2),
@@ -126,7 +128,12 @@ class _EditProductPageState extends State<EditProductPage> {
                           fontWeight: FontWeight.w500,
                           color: Colors.black),
                     ),
-                    validator: AppValidators.price,
+                    validator: (value) => AppValidators.price(
+                      value,
+                      emptyMessage: l10n.pleaseEnterPrice,
+                      invalidNumberMessage: l10n.pleaseEnterValidNumber,
+                      negativeMessage: l10n.priceCannotBeNegative,
+                    ),
                     onSaved: (value) => _price = double.parse(value!),
                   ),
                 ],
@@ -137,7 +144,7 @@ class _EditProductPageState extends State<EditProductPage> {
         bottomNavigationBar: PrimaryButton(
           onPressed: _submit,
           icon: Icons.save,
-          label: 'حفظ التعديلات',
+          label: l10n.saveChanges,
         ));
   }
 }

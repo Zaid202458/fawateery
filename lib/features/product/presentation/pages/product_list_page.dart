@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../bloc/product_bloc.dart';
 import '../../domain/entities/product.dart';
 import '../../../../core/theme/app_theme.dart';
@@ -49,6 +50,7 @@ class _ProductListPageState extends State<ProductListPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final borderColor = Colors.grey[100]!;
 
     return Scaffold(
@@ -60,7 +62,7 @@ class _ProductListPageState extends State<ProductListPage> {
               size: 28, color: Theme.of(context).primaryColor),
           onPressed: () => context.pop(),
         ),
-        title: const Text('إدارة المنتجات',
+        title: Text(l10n.productManagement,
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
         centerTitle: true,
       ),
@@ -81,14 +83,14 @@ class _ProductListPageState extends State<ProductListPage> {
                           controller: _searchController,
                           textCapitalization: TextCapitalization.words,
                           decoration: InputDecoration(
-                            hintText: 'امسح أو أدخل الباركود',
+                            hintText: l10n.scanOrEnterBarcode,
                             prefixIcon: Icon(
                               Icons.search,
                               color: Colors.grey[400],
                             ),
                           ),
                           validator:
-                              AppValidators.required('الرجاء إدخال الباركود'),
+                              AppValidators.required(l10n.pleaseEnterBarcode),
                         ),
                       ),
                       const SizedBox(width: 12),
@@ -107,7 +109,7 @@ class _ProductListPageState extends State<ProductListPage> {
                     ],
                   ),
                   const SizedBox(height: 6),
-                  const Text('اضغط على الأيقونة لفتح الكاميرا',
+                  Text(l10n.tapIconToOpenScanner,
                       style: TextStyle(fontSize: 12, color: Color(0xFF4C669A))),
                 ],
               );
@@ -141,10 +143,10 @@ class _ProductListPageState extends State<ProductListPage> {
 
                 if (state.products.isEmpty) {
                   if (state.status == ProductStatus.error) {
-                    return Center(child: Text('خطأ: ${state.message}'));
+                    return Center(
+                        child: Text('${l10n.errorPrefix}: ${state.message}'));
                   }
-                  return const Center(
-                      child: Text('لا توجد منتجات. أضف منتجات جديدة.'));
+                  return Center(child: Text(l10n.noProductsFound));
                 }
 
                 final filteredProducts = state.products
@@ -154,8 +156,7 @@ class _ProductListPageState extends State<ProductListPage> {
                     .toList();
 
                 if (filteredProducts.isEmpty) {
-                  return const Center(
-                      child: Text('لا توجد منتجات مطابقة للبحث.'));
+                  return Center(child: Text(l10n.noProductsMatchSearch));
                 }
 
                 return ListView.separated(
@@ -260,23 +261,24 @@ class _ProductListPageState extends State<ProductListPage> {
   }
 
   void _confirmDelete(BuildContext context, Product product) {
+    final l10n = AppLocalizations.of(context)!;
     showDialog(
       context: context,
       builder: (innerContext) {
         return AlertDialog(
-          title: const Text('حذف المنتج'),
-          content: Text('هل أنت متأكد من حذف ${product.name}؟'),
+          title: Text(l10n.deleteProduct),
+          content: Text(l10n.confirmDeleteProduct(product.name)),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(innerContext),
-              child: const Text('إلغاء'),
+              child: Text(l10n.cancel),
             ),
             TextButton(
               onPressed: () {
                 context.read<ProductBloc>().add(DeleteProduct(product.id));
                 Navigator.pop(innerContext);
               },
-              child: const Text('حذف', style: TextStyle(color: Colors.red)),
+              child: Text(l10n.delete, style: const TextStyle(color: Colors.red)),
             ),
           ],
         );

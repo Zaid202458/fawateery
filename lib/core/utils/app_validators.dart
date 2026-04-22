@@ -8,15 +8,20 @@ class AppValidators {
     };
   }
 
-  static String? price(String? value) {
+  static String? price(
+    String? value, {
+    String? emptyMessage,
+    String? invalidNumberMessage,
+    String? negativeMessage,
+  }) {
     if (value == null || value.trim().isEmpty) {
-      return 'الرجاء إدخال السعر';
+      return emptyMessage ?? 'الرجاء إدخال السعر';
     }
     if (double.tryParse(value) == null) {
-      return 'الرجاء إدخال رقم صحيح';
+      return invalidNumberMessage ?? 'الرجاء إدخال رقم صحيح';
     }
     if (double.parse(value) < 0) {
-      return 'لا يمكن أن يكون السعر سالبًا';
+      return negativeMessage ?? 'لا يمكن أن يكون السعر سالبًا';
     }
     return null;
   }

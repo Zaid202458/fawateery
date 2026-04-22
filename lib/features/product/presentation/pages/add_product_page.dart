@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:uuid/uuid.dart';
+import '../../../../l10n/app_localizations.dart';
 
 import '../bloc/product_bloc.dart';
 import '../../domain/entities/product.dart';
@@ -33,6 +34,7 @@ class _AddProductPageState extends State<AddProductPage> {
   }
 
   void _submit() {
+    final l10n = AppLocalizations.of(context)!;
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
@@ -43,7 +45,7 @@ class _AddProductPageState extends State<AddProductPage> {
       if (existingProduct != null) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('يوجد منتج بهذا الباركود "$_barcode" بالفعل!'),
+            content: Text(l10n.duplicateBarcodeProduct(_barcode)),
             backgroundColor: Colors.red,
           ),
         );
@@ -64,6 +66,7 @@ class _AddProductPageState extends State<AddProductPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.transparent,
@@ -73,7 +76,7 @@ class _AddProductPageState extends State<AddProductPage> {
                 size: 28, color: Theme.of(context).primaryColor),
             onPressed: () => context.pop(),
           ),
-          title: const Text('إضافة منتج',
+          title: Text(l10n.addProduct,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
           centerTitle: true,
         ),
@@ -85,18 +88,18 @@ class _AddProductPageState extends State<AddProductPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const InputLabel(text: 'الباركود'),
+                  InputLabel(text: l10n.barcode),
                   Row(
                     children: [
                       Expanded(
                         child: TextFormField(
                           key: ValueKey(_barcode),
                           initialValue: _barcode,
-                          decoration: const InputDecoration(
-                            hintText: 'امسح أو أدخل الباركود',
+                          decoration: InputDecoration(
+                            hintText: l10n.scanOrEnterBarcode,
                           ),
                           validator:
-                              AppValidators.required('الرجاء إدخال الباركود'),
+                              AppValidators.required(l10n.pleaseEnterBarcode),
                           onSaved: (value) => _barcode = value!,
                         ),
                       ),
@@ -116,20 +119,20 @@ class _AddProductPageState extends State<AddProductPage> {
                     ],
                   ),
                   const SizedBox(height: 6),
-                  const Text('اضغط على الأيقونة لفتح الكاميرا',
+                  Text(l10n.tapIconToOpenScanner,
                       style: TextStyle(fontSize: 12, color: Color(0xFF4C669A))),
                   const SizedBox(height: 24),
-                  const InputLabel(text: 'اسم المنتج'),
+                  InputLabel(text: l10n.productName),
                   TextFormField(
-                    decoration: const InputDecoration(
-                      hintText: 'مثال: أرز بسمتي',
+                    decoration: InputDecoration(
+                      hintText: l10n.exampleProductName,
                     ),
                     textCapitalization: TextCapitalization.words,
-                    validator: AppValidators.required('الرجاء إدخال الاسم'),
+                    validator: AppValidators.required(l10n.pleaseEnterName),
                     onSaved: (value) => _name = value!,
                   ),
                   const SizedBox(height: 24),
-                  const InputLabel(text: 'السعر'),
+                  InputLabel(text: l10n.price),
                   TextFormField(
                     keyboardType:
                         const TextInputType.numberWithOptions(decimal: true),
@@ -141,7 +144,12 @@ class _AddProductPageState extends State<AddProductPage> {
                           fontWeight: FontWeight.w500,
                           color: Colors.black),
                     ),
-                    validator: AppValidators.price,
+                    validator: (value) => AppValidators.price(
+                      value,
+                      emptyMessage: l10n.pleaseEnterPrice,
+                      invalidNumberMessage: l10n.pleaseEnterValidNumber,
+                      negativeMessage: l10n.priceCannotBeNegative,
+                    ),
                     onSaved: (value) => _price = double.parse(value!),
                   ),
                 ],
@@ -152,7 +160,7 @@ class _AddProductPageState extends State<AddProductPage> {
         bottomNavigationBar: PrimaryButton(
           onPressed: _submit,
           icon: Icons.add_circle,
-          label: 'إضافة المنتج',
+          label: l10n.addProductButton,
         ));
   }
 }

@@ -3,8 +3,94 @@
   "welcome": "أهلا بك",
   "appTitle": "فواتيري",
   "settings": "الإعدادات",
+  "management": "الإدارة",
   "language": "اللغة",
   "arabic": "العربية",
   "english": "الإنجليزية",
-  "languageChanged": "تم تغيير اللغة"
+  "languageChanged": "تم تغيير اللغة",
+  "reviewOrder": "مراجعة الطلب",
+  "cameraOffTitle": "الكاميرا متوقفة",
+  "cameraOffDescription": "قم بتشغيل الكاميرا لبدء مسح الباركود وإضافة الأصناف تلقائيًا.",
+  "turnOnCamera": "تشغيل الكاميرا",
+  "scannedItems": "الأصناف الممسوحة",
+  "totalItemsCount": "إجمالي القطع: {count}",
+  "@totalItemsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "totalLabel": "الإجمالي",
+  "emptyListTitle": "القائمة فارغة",
+  "emptyListDescription": "ستظهر الأصناف هنا عند مسحها بالكاميرا في الأعلى.",
+  "checkoutTitle": "إتمام الطلب",
+  "printedSuccessfully": "تمت الطباعة بنجاح",
+  "productName": "الصنف",
+  "price": "السعر",
+  "total": "الإجمالي",
+  "scanToPay": "امسح للدفع",
+  "grandTotal": "المجموع الكلي",
+  "shopDetailsNotLoaded": "بيانات المتجر غير محملة",
+  "printReceipt": "طباعة الفاتورة",
+  "scannerTitle": "مسح الباركود",
+  "alignBarcodeWithinFrame": "ضع الباركود داخل الإطار",
+  "productManagement": "إدارة المنتجات",
+  "scanOrEnterBarcode": "امسح أو أدخل الباركود",
+  "tapIconToOpenScanner": "اضغط على الأيقونة لفتح الكاميرا",
+  "errorPrefix": "خطأ",
+  "noProductsFound": "لا توجد منتجات. أضف منتجات جديدة.",
+  "noProductsMatchSearch": "لا توجد منتجات مطابقة للبحث.",
+  "deleteProduct": "حذف المنتج",
+  "confirmDeleteProduct": "هل أنت متأكد من حذف {name}؟",
+  "@confirmDeleteProduct": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "cancel": "إلغاء",
+  "delete": "حذف",
+  "duplicateBarcodeProduct": "يوجد منتج بهذا الباركود \"{barcode}\" بالفعل!",
+  "@duplicateBarcodeProduct": {
+    "placeholders": {
+      "barcode": {
+        "type": "String"
+      }
+    }
+  },
+  "addProduct": "إضافة منتج",
+  "exampleProductName": "مثال: أرز بسمتي",
+  "addProductButton": "إضافة المنتج",
+  "editProduct": "تعديل المنتج",
+  "barcode": "الباركود",
+  "saveChanges": "حفظ التعديلات",
+  "products": "المنتجات",
+  "manageStockAndBarcodes": "إدارة المخزون والباركود",
+  "shopDetails": "بيانات المتجر",
+  "editBusinessInfoAddress": "تعديل معلومات المتجر والعنوان",
+  "hardware": "الأجهزة",
+  "printerConnected": "تم الاتصال بالطابعة",
+  "printDevice": "جهاز الطباعة",
+  "noPrinterConnected": "لا توجد طابعة متصلة",
+  "connected": "متصل",
+  "connectPrinterHelp": "لتوصيل جهاز جديد، افتح إعدادات البلوتوث من رمز الترس، ثم ارجع واضغط تحديث.",
+  "shopDetailsSaved": "تم حفظ بيانات المتجر",
+  "generalInformation": "المعلومات العامة",
+  "detailsAppearOnReceipts": "هذه المعلومات ستظهر في الفواتير الرقمية والمطبوعة.",
+  "maxChars60": "الحد الأقصى 60 حرفًا",
+  "saveDetails": "حفظ البيانات",
+  "requiredField": "هذا الحقل مطلوب",
+  "pleaseEnterBarcode": "الرجاء إدخال الباركود",
+  "pleaseEnterName": "الرجاء إدخال الاسم",
+  "pleaseEnterPrice": "الرجاء إدخال السعر",
+  "pleaseEnterValidNumber": "الرجاء إدخال رقم صحيح",
+  "priceCannotBeNegative": "لا يمكن أن يكون السعر سالبًا",
+  "shopNameLabel": "اسم المتجر",
+  "addressLine1Label": "العنوان 1",
+  "addressLine2OptionalLabel": "العنوان 2 (اختياري)",
+  "phoneNumberLabel": "رقم الجوال",
+  "upiIdLabel": "معرف UPI",
+  "receiptFooterTextLabel": "نص تذييل الفاتورة"
 }

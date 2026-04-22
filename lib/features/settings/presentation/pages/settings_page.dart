@@ -103,20 +103,20 @@ class _SettingsPageState extends State<SettingsPage> {
             const SizedBox(height: 24),
 
             // Management Section
-            _buildSectionHeader('الإدارة'),
+            _buildSectionHeader(l10n.management),
             _buildListGroup(
               children: [
                 _buildListItem(
                   icon: Icons.qr_code_scanner,
-                  title: 'المنتجات',
-                  subtitle: 'إدارة المخزون والباركود',
+                  title: l10n.products,
+                  subtitle: l10n.manageStockAndBarcodes,
                   onTap: () => context.push('/products'),
                 ),
                 _buildDivider(),
                 _buildListItem(
                   icon: Icons.storefront,
-                  title: 'بيانات المتجر',
-                  subtitle: 'تعديل معلومات المتجر والعنوان',
+                  title: l10n.shopDetails,
+                  subtitle: l10n.editBusinessInfoAddress,
                   onTap: () => context.push('/shop'),
                 ),
               ],
@@ -130,7 +130,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 _buildListItem(
                   icon: Icons.language,
                   title: l10n.arabic,
-                  subtitle: 'العربية',
+                  subtitle: l10n.arabic,
                   trailingIcon: null,
                   trailingWidget: currentLocaleCode == 'ar'
                       ? const Icon(Icons.check_circle, color: Colors.green)
@@ -141,7 +141,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 _buildListItem(
                   icon: Icons.translate,
                   title: l10n.english,
-                  subtitle: 'English',
+                  subtitle: l10n.english,
                   trailingIcon: null,
                   trailingWidget: currentLocaleCode == 'en'
                       ? const Icon(Icons.check_circle, color: Colors.green)
@@ -154,7 +154,7 @@ class _SettingsPageState extends State<SettingsPage> {
             const SizedBox(height: 24),
 
             // Hardware Section
-            _buildSectionHeader('الأجهزة'),
+            _buildSectionHeader(l10n.hardware),
             BlocConsumer<PrinterBloc, PrinterState>(
               listener: (context, state) {
                 if (state.errorMessage != null) {
@@ -162,8 +162,8 @@ class _SettingsPageState extends State<SettingsPage> {
                       content: Text(state.errorMessage!),
                       backgroundColor: Colors.red));
                 } else if (state.status == PrinterStatus.connected) {
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text('تم الاتصال بالطابعة'),
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text(l10n.printerConnected),
                       backgroundColor: Colors.green));
                 }
               },
@@ -172,13 +172,13 @@ class _SettingsPageState extends State<SettingsPage> {
                   children: [
                     _buildListItem(
                       icon: Icons.print,
-                      title: 'جهاز الطباعة',
+                      title: l10n.printDevice,
                       subtitleWidget: Row(
                         children: [
                           Text(
                             state.connectedMac != null
-                                ? (state.connectedName ?? 'طابعة متصلة')
-                                : 'لا توجد طابعة متصلة',
+                                ? (state.connectedName ?? l10n.printerConnected)
+                                : l10n.noPrinterConnected,
                             style: TextStyle(
                                 fontSize: 12, color: Colors.grey[500]),
                           ),
@@ -192,7 +192,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(color: Colors.teal[200]!)),
                               child: Text(
-                                'متصل',
+                                l10n.connected,
                                 style: TextStyle(
                                     fontSize: 9,
                                     fontWeight: FontWeight.bold,
@@ -239,7 +239,7 @@ class _SettingsPageState extends State<SettingsPage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
               child: Text(
-                'لتوصيل جهاز جديد، افتح إعدادات البلوتوث من رمز الترس، ثم ارجع واضغط تحديث.',
+                l10n.connectPrinterHelp,
                 style: TextStyle(
                     fontSize: 11,
                     fontStyle: FontStyle.italic,

@@ -3,8 +3,94 @@
   "welcome": "Welcome",
   "appTitle": "Fawateery",
   "settings": "Settings",
+  "management": "Management",
   "language": "Language",
   "arabic": "Arabic",
   "english": "English",
-  "languageChanged": "Language changed"
+  "languageChanged": "Language changed",
+  "reviewOrder": "Review Order",
+  "cameraOffTitle": "Camera is turned off",
+  "cameraOffDescription": "Turn on your camera to start scanning barcodes and items automatically.",
+  "turnOnCamera": "Turn on Camera",
+  "scannedItems": "Scanned Items",
+  "totalItemsCount": "{count} items total",
+  "@totalItemsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "totalLabel": "Total",
+  "emptyListTitle": "List is empty",
+  "emptyListDescription": "Scanned items will appear here as you scan them with the camera above.",
+  "checkoutTitle": "Checkout",
+  "printedSuccessfully": "Printed successfully",
+  "productName": "Product Name",
+  "price": "Price",
+  "total": "Total",
+  "scanToPay": "Scan to Pay",
+  "grandTotal": "Grand Total",
+  "shopDetailsNotLoaded": "Shop details not loaded",
+  "printReceipt": "Print Receipt",
+  "scannerTitle": "Scan Barcode",
+  "alignBarcodeWithinFrame": "Align barcode within frame",
+  "productManagement": "Product Management",
+  "scanOrEnterBarcode": "Scan or enter barcode",
+  "tapIconToOpenScanner": "Tap the icon to open camera scanner",
+  "errorPrefix": "Error",
+  "noProductsFound": "No products found. Add some!",
+  "noProductsMatchSearch": "No products match your search.",
+  "deleteProduct": "Delete Product",
+  "confirmDeleteProduct": "Are you sure you want to delete {name}?",
+  "@confirmDeleteProduct": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "cancel": "Cancel",
+  "delete": "Delete",
+  "duplicateBarcodeProduct": "Product with barcode \"{barcode}\" already exists!",
+  "@duplicateBarcodeProduct": {
+    "placeholders": {
+      "barcode": {
+        "type": "String"
+      }
+    }
+  },
+  "addProduct": "Add Product",
+  "exampleProductName": "e.g. Basmati Rice",
+  "addProductButton": "Add Product",
+  "editProduct": "Edit Product",
+  "barcode": "Barcode",
+  "saveChanges": "Save Changes",
+  "products": "Products",
+  "manageStockAndBarcodes": "Manage stock and barcodes",
+  "shopDetails": "Shop Details",
+  "editBusinessInfoAddress": "Edit business info & address",
+  "hardware": "Hardware",
+  "printerConnected": "Connected to printer",
+  "printDevice": "Print Device",
+  "noPrinterConnected": "No printer connected",
+  "connected": "Connected",
+  "connectPrinterHelp": "To connect a new device, open Bluetooth settings from the gear icon, then return and tap Refresh.",
+  "shopDetailsSaved": "Shop details saved",
+  "generalInformation": "General Information",
+  "detailsAppearOnReceipts": "These details will appear on your digital and printed receipts.",
+  "maxChars60": "Max 60 chars",
+  "saveDetails": "Save Details",
+  "requiredField": "Required",
+  "pleaseEnterBarcode": "Please enter a barcode",
+  "pleaseEnterName": "Please enter a name",
+  "pleaseEnterPrice": "Please enter a price",
+  "pleaseEnterValidNumber": "Please enter a valid number",
+  "priceCannotBeNegative": "Price cannot be negative",
+  "shopNameLabel": "Shop Name",
+  "addressLine1Label": "Address Line 1",
+  "addressLine2OptionalLabel": "Address Line 2 (Optional)",
+  "phoneNumberLabel": "Phone Number",
+  "upiIdLabel": "UPI ID",
+  "receiptFooterTextLabel": "Receipt Footer Text"
 }
