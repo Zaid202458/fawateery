@@ -149,7 +149,7 @@ class _ShopDetailsPageState extends State<ShopDetailsPage> {
                     InputLabel(text: l10n.phoneNumberLabel),
                     _buildTextField(
                       controller: _phoneController,
-                      hint: '+91 7010674588',
+                      hint: '+966 5XX XXX XXX',
                       keyboardType: TextInputType.phone,
                       validator: AppValidators.required(l10n.requiredField),
                     ),
