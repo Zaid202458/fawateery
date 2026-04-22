@@ -28,7 +28,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
         },
         child: Scaffold(
           appBar: AppBar(
-            title: const Text('Checkout',
+            title: const Text('إتمام الطلب',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
             centerTitle: true,
             backgroundColor: Colors.transparent,
@@ -46,7 +46,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
             listener: (context, state) {
               if (state.printSuccess) {
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    content: Text('Printed successfully'),
+                    content: Text('تمت الطباعة بنجاح'),
                     backgroundColor: Colors.green));
                 // context.read<BillingBloc>().add(ClearCartEvent());
                 // context.go('/');
@@ -56,7 +56,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
               return BlocBuilder<ShopBloc, ShopState>(
                   builder: (context, shopState) {
                 String upiId = '';
-                String shopName = 'Shop';
+                String shopName = 'المتجر';
 
                 if (shopState is ShopLoaded) {
                   upiId = shopState.shop.upiId;
@@ -104,11 +104,11 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                       ),
                                       children: [
                                         _buildHeaderCell(
-                                            'Product Name', TextAlign.left),
+                                            'الصنف', TextAlign.left),
                                         _buildHeaderCell(
-                                            'Price', TextAlign.right),
+                                            'السعر', TextAlign.right),
                                         _buildHeaderCell(
-                                            'Total', TextAlign.right),
+                                            'الإجمالي', TextAlign.right),
                                       ],
                                     ),
                                     // Items rows
@@ -174,7 +174,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                     ? Column(
                                         children: [
                                           const Text(
-                                            'Scan to Pay',
+                                            'امسح للدفع',
                                             style: TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.bold,
@@ -200,7 +200,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      'GRAND TOTAL',
+                                      'المجموع الكلي',
                                       style: TextStyle(
                                         fontSize: 12,
                                         fontWeight: FontWeight.bold,
@@ -236,11 +236,11 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
                                         content:
-                                            Text('Shop details not loaded'),
+                                            Text('بيانات المتجر غير محمّلة'),
                                         backgroundColor: Colors.red));
                               }
                             },
-                            label: 'Print Receipt',
+                            label: 'طباعة الفاتورة',
                             icon: Icons.print,
                             isLoading: billingState.isPrinting,
                           ),

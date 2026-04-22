@@ -11,7 +11,7 @@ class PrinterRepositoryImpl implements PrinterRepository {
     if (await _printerHelper.checkPermission()) {
       return await _printerHelper.getBondedDevices();
     }
-    throw Exception('Bluetooth permission denied');
+    throw Exception('تم رفض إذن البلوتوث');
   }
 
   @override

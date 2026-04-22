@@ -1,0 +1,10 @@
+{
+  "hello": "مرحبا",
+  "welcome": "أهلا بك",
+  "appTitle": "فواتيري",
+  "settings": "الإعدادات",
+  "language": "اللغة",
+  "arabic": "العربية",
+  "english": "الإنجليزية",
+  "languageChanged": "تم تغيير اللغة"
+}

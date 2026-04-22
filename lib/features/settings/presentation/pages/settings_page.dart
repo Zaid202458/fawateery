@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:app_settings/app_settings.dart';
 
 import '../../../../core/theme/app_theme.dart';
+import '../../../../l10n/app_localizations.dart';
+import '../../../../main.dart';
 import '../../../shop/presentation/bloc/shop_bloc.dart';
 import '../bloc/printer_bloc.dart';
 import '../bloc/printer_event.dart';
@@ -26,10 +28,13 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final currentLocaleCode = Localizations.localeOf(context).languageCode;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Settings',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+        title: Text(l10n.settings,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
         centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -49,7 +54,7 @@ class _SettingsPageState extends State<SettingsPage> {
               padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 24),
               child: BlocBuilder<ShopBloc, ShopState>(
                 builder: (context, state) {
-                  String shopName = 'Elite Groceries';
+                  String shopName = 'متجر فواتيري';
                   String initials = 'EG';
                   if (state is ShopLoaded && state.shop.name.isNotEmpty) {
                     shopName = state.shop.name;
@@ -58,7 +63,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         .take(2)
                         .map((p) => p.isNotEmpty ? p[0].toUpperCase() : '')
                         .join('');
-                    if (initials.isEmpty) initials = 'S';
+                    if (initials.isEmpty) initials = 'م';
                   }
 
                   return Column(
@@ -98,20 +103,20 @@ class _SettingsPageState extends State<SettingsPage> {
             const SizedBox(height: 24),
 
             // Management Section
-            _buildSectionHeader('Management'),
+            _buildSectionHeader('الإدارة'),
             _buildListGroup(
               children: [
                 _buildListItem(
                   icon: Icons.qr_code_scanner,
-                  title: 'Products',
-                  subtitle: 'Manage stock and barcodes',
+                  title: 'المنتجات',
+                  subtitle: 'إدارة المخزون والباركود',
                   onTap: () => context.push('/products'),
                 ),
                 _buildDivider(),
                 _buildListItem(
                   icon: Icons.storefront,
-                  title: 'Shop Details',
-                  subtitle: 'Edit business info & address',
+                  title: 'بيانات المتجر',
+                  subtitle: 'تعديل معلومات المتجر والعنوان',
                   onTap: () => context.push('/shop'),
                 ),
               ],
@@ -119,8 +124,37 @@ class _SettingsPageState extends State<SettingsPage> {
 
             const SizedBox(height: 24),
 
+            _buildSectionHeader(l10n.language),
+            _buildListGroup(
+              children: [
+                _buildListItem(
+                  icon: Icons.language,
+                  title: l10n.arabic,
+                  subtitle: 'العربية',
+                  trailingIcon: null,
+                  trailingWidget: currentLocaleCode == 'ar'
+                      ? const Icon(Icons.check_circle, color: Colors.green)
+                      : null,
+                  onTap: () => setAppLocale(const Locale('ar')),
+                ),
+                _buildDivider(),
+                _buildListItem(
+                  icon: Icons.translate,
+                  title: l10n.english,
+                  subtitle: 'English',
+                  trailingIcon: null,
+                  trailingWidget: currentLocaleCode == 'en'
+                      ? const Icon(Icons.check_circle, color: Colors.green)
+                      : null,
+                  onTap: () => setAppLocale(const Locale('en')),
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 24),
+
             // Hardware Section
-            _buildSectionHeader('Hardware'),
+            _buildSectionHeader('الأجهزة'),
             BlocConsumer<PrinterBloc, PrinterState>(
               listener: (context, state) {
                 if (state.errorMessage != null) {
@@ -129,7 +163,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       backgroundColor: Colors.red));
                 } else if (state.status == PrinterStatus.connected) {
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text('Connected to printer'),
+                      content: Text('تم الاتصال بالطابعة'),
                       backgroundColor: Colors.green));
                 }
               },
@@ -138,13 +172,13 @@ class _SettingsPageState extends State<SettingsPage> {
                   children: [
                     _buildListItem(
                       icon: Icons.print,
-                      title: 'Print Device',
+                      title: 'جهاز الطباعة',
                       subtitleWidget: Row(
                         children: [
                           Text(
                             state.connectedMac != null
-                                ? (state.connectedName ?? 'Printer connected')
-                                : 'No printer connected',
+                                ? (state.connectedName ?? 'طابعة متصلة')
+                                : 'لا توجد طابعة متصلة',
                             style: TextStyle(
                                 fontSize: 12, color: Colors.grey[500]),
                           ),
@@ -158,7 +192,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(color: Colors.teal[200]!)),
                               child: Text(
-                                'CONNECTED',
+                                'متصل',
                                 style: TextStyle(
                                     fontSize: 9,
                                     fontWeight: FontWeight.bold,
@@ -205,7 +239,7 @@ class _SettingsPageState extends State<SettingsPage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
               child: Text(
-                "To connect a new device, tap on the Settings gear to pair in phone's Bluetooth settings, then return and hit Refresh.",
+                'لتوصيل جهاز جديد، افتح إعدادات البلوتوث من رمز الترس، ثم ارجع واضغط تحديث.',
                 style: TextStyle(
                     fontSize: 11,
                     fontStyle: FontStyle.italic,

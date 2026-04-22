@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'l10n/app_localizations.dart';
 import 'config/routes/app_routes.dart';
 import 'core/data/hive_database.dart';
 import 'core/service_locator.dart' as di;
@@ -9,6 +11,12 @@ import 'features/product/presentation/bloc/product_bloc.dart';
 import 'features/shop/presentation/bloc/shop_bloc.dart';
 import 'features/settings/presentation/bloc/printer_bloc.dart';
 import 'features/settings/presentation/bloc/printer_event.dart';
+
+final ValueNotifier<Locale> localeNotifier = ValueNotifier(const Locale('ar'));
+
+void setAppLocale(Locale locale) {
+  localeNotifier.value = locale;
+}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,11 +42,24 @@ class MyApp extends StatelessWidget {
         BlocProvider<PrinterBloc>(
             create: (context) => di.sl<PrinterBloc>()..add(InitPrinterEvent())),
       ],
-      child: MaterialApp.router(
-        title: 'Billing App',
-        theme: AppTheme.lightTheme,
-        routerConfig: router,
-        debugShowCheckedModeBanner: false,
+      child: ValueListenableBuilder<Locale>(
+        valueListenable: localeNotifier,
+        builder: (context, locale, _) {
+          return MaterialApp.router(
+            onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,
+            theme: AppTheme.lightTheme,
+            routerConfig: router,
+            locale: locale,
+            supportedLocales: AppLocalizations.supportedLocales,
+            localizationsDelegates: [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            debugShowCheckedModeBanner: false,
+          );
+        },
       ),
     );
   }

@@ -1,0 +1,10 @@
+{
+  "hello": "Hello",
+  "welcome": "Welcome",
+  "appTitle": "Fawateery",
+  "settings": "Settings",
+  "language": "Language",
+  "arabic": "Arabic",
+  "english": "English",
+  "languageChanged": "Language changed"
+}
